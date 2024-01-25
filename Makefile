@@ -1,6 +1,6 @@
 NAME = philosophers
 
-SRCS =	philosophers.c utils.c threads.c parcing.c\
+SRCS = main.c philosophers.c utils.c threads.c parcing.c free.c\
 
 
 OBJS = $(SRCS:.c=.o)

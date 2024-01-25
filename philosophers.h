@@ -15,8 +15,8 @@ typedef struct s_philo {
 	int				id;
 	int				is_dead;
 	pthread_t		p_thread; //thread created for philo
-	t_fork			*cur_fork;
-	t_fork			*next_fork;
+	struct s_fork	*cur_fork;
+	struct s_fork	*next_fork;
 	struct timeval	last_eat;
 	struct timeval	current_time;
 } t_philo;
@@ -43,7 +43,13 @@ int		ft_isdigit(int c);
 int		check_args(char **str);
 int		ft_atoi(const char *str);
 void	init_args(int argc, char **av, t_able *table);
-void	assign_forks(t_able *table);
-void	*ft_calloc(size_t count, size_t size)
+int		assign_forks(t_able *table);
+void	*ft_calloc(size_t count, size_t size);
+void	ft_lstadd_back(t_fork **lst, t_fork *new);
+int		free_mutex(t_able *table, int n);
+int		free_philo(t_able *table);
+int		free_all(t_able *table, int n);
+
+
 
 #endif
