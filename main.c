@@ -6,7 +6,7 @@
 /*   By: naalzaab <naalzaab@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 17:34:40 by naalzaab          #+#    #+#             */
-/*   Updated: 2024/01/25 19:21:38 by naalzaab         ###   ########.fr       */
+/*   Updated: 2024/01/31 19:23:26 by naalzaab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,17 @@ int main(int argc, char **argv)
 			return (free_philo(&table));
 		if (assign_forks(&table) == 1)
 			return (1); //create function to free evrything then return 1
-		int i = 0;
-		while (i < table.num_of_philos)
-		{
-			printf("Id: %d\n", table.forks->fork_id);
-			table.forks = table.forks->next;
-			i++;
-		}
+		threads_init(&table);
+		
+		
+		
+		// int i = 0;
+		// while (i < table.num_of_philos)
+		// {
+		// 	printf("Id: %d\n", table.forks->fork_id);
+		// 	table.forks = table.forks->next;
+		// 	i++;
+		// }
 	}
 	else
 		write(2, "Error: wrong number of inputs", 29);

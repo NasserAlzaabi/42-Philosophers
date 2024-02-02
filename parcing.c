@@ -6,7 +6,7 @@
 /*   By: naalzaab <naalzaab@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 17:34:47 by naalzaab          #+#    #+#             */
-/*   Updated: 2024/01/25 19:13:10 by naalzaab         ###   ########.fr       */
+/*   Updated: 2024/02/02 20:02:30 by naalzaab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	init_args(int argc, char **av, t_able *table)
 	table->t_die = ft_atoi(av[2]);
 	table->t_eat = ft_atoi(av[3]);
 	table->t_sleep = ft_atoi(av[4]);
+	table->any_dead = 0;
 	if (argc == 6)
 		table->meals = ft_atoi(av[5]);
 	else
@@ -76,6 +77,10 @@ int	assign_forks(t_able *table)
 		tmp->last_used = i;
 		if (i % 2)
 			tmp->last_used -= 1; //if its even make it odd, bec odd numers will start eating first
+		if (i == 1)
+			tmp->last_used = table->num_of_philos; 
+		if ((table->num_of_philos % 2) && (table->num_of_philos == i))
+			tmp->last_used = i;
 		ft_lstadd_back(&forks, tmp);
 		if (pthread_mutex_init(&tmp->fork_lock, NULL) != 0)
 		{
