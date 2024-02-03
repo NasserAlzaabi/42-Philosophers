@@ -6,7 +6,7 @@
 /*   By: naalzaab <naalzaab@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 17:35:20 by naalzaab          #+#    #+#             */
-/*   Updated: 2024/01/25 17:13:16 by naalzaab         ###   ########.fr       */
+/*   Updated: 2024/02/03 18:23:27 by naalzaab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,30 +66,4 @@ void	*ft_calloc(size_t count, size_t size)
 	while (i < (count * size))
 		((char *)str)[i++] = '\0';
 	return (str);
-}
-
-t_fork	*ft_lstlast(t_fork *lst)
-{
-	if (!lst)
-		return (NULL);
-	while (lst)
-	{
-		if (!(lst->next))
-			return (lst);
-		lst = lst->next;
-	}
-	return (lst);
-}
-
-void	ft_lstadd_back(t_fork **lst, t_fork *new)
-{
-	t_fork	*n;
-
-	if (*lst)
-	{
-		n = ft_lstlast(*lst);
-		n->next = &*new;
-	}
-	else
-		*lst = new;
 }

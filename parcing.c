@@ -6,7 +6,7 @@
 /*   By: naalzaab <naalzaab@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 17:34:47 by naalzaab          #+#    #+#             */
-/*   Updated: 2024/02/02 20:02:30 by naalzaab         ###   ########.fr       */
+/*   Updated: 2024/02/03 19:11:32 by naalzaab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	check_args(char **str)
 {
-	int		i;
-	int		j;
+	int	i;
+	int	j;
 
 	i = 1;
 	while (str[i])
@@ -43,21 +43,24 @@ void	init_args(int argc, char **av, t_able *table)
 	table->t_eat = ft_atoi(av[3]);
 	table->t_sleep = ft_atoi(av[4]);
 	table->any_dead = 0;
+	table->full_philos = 0;
+	if (pthread_mutex_init(&table->writing, NULL) != 0)
+		return ;
 	if (argc == 6)
 		table->meals = ft_atoi(av[5]);
 	else
 		table->meals = -1;
 }
 
-t_fork	*create_fork()
+t_fork	*create_fork(void)
 {
 	t_fork	*fork;
 
 	fork = ft_calloc(1, sizeof(t_fork));
 	if (!fork)
-		return(NULL);
+		return (NULL);
 	fork->next = NULL;
-	return(fork);
+	return (fork);
 }
 
 int	assign_forks(t_able *table)
@@ -68,17 +71,17 @@ int	assign_forks(t_able *table)
 
 	i = 0;
 	forks = NULL;
-	while(++i <= table->num_of_philos)
+	while (++i <= table->num_of_philos)
 	{
 		tmp = create_fork();
 		if (!tmp)
-			return(1); //create function to free all then return null
+			return (1); //create function to free all then return null
 		tmp->fork_id = i;
 		tmp->last_used = i;
 		if (i % 2)
-			tmp->last_used -= 1; //if its even make it odd, bec odd numers will start eating first
+			tmp->last_used -= 1;
 		if (i == 1)
-			tmp->last_used = table->num_of_philos; 
+			tmp->last_used = table->num_of_philos;
 		if ((table->num_of_philos % 2) && (table->num_of_philos == i))
 			tmp->last_used = i;
 		ft_lstadd_back(&forks, tmp);
@@ -93,4 +96,3 @@ int	assign_forks(t_able *table)
 	table->forks = forks;
 	return (0);
 }
-

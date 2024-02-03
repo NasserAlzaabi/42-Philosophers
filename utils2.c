@@ -1,31 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print.c                                            :+:      :+:    :+:   */
+/*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: naalzaab <naalzaab@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/31 17:44:43 by naalzaab          #+#    #+#             */
-/*   Updated: 2024/02/03 19:17:44 by naalzaab         ###   ########.fr       */
+/*   Created: 2024/02/03 18:23:14 by naalzaab          #+#    #+#             */
+/*   Updated: 2024/02/03 18:23:32 by naalzaab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	printl(t_philo *philo, char *state)
+t_fork	*ft_lstlast(t_fork *lst)
 {
-	long	time;
-
-	gettimeofday(&philo->current_time, NULL);
-	time = philo->current_time.tv_sec * 1000 + philo->current_time.tv_usec
-		/ 1000;
-	pthread_mutex_lock(&philo->table->writing);
-	if (!philo->table->any_dead)
+	if (!lst)
+		return (NULL);
+	while (lst)
 	{
-		printf(state, time - philo->table->t_start, philo->id);
-		pthread_mutex_unlock(&philo->table->writing);
-		return (0);
+		if (!(lst->next))
+			return (lst);
+		lst = lst->next;
 	}
-	pthread_mutex_unlock(&philo->table->writing);
-	return (1);
+	return (lst);
+}
+
+void	ft_lstadd_back(t_fork **lst, t_fork *new)
+{
+	t_fork	*n;
+
+	if (*lst)
+	{
+		n = ft_lstlast(*lst);
+		n->next = &*new;
+	}
+	else
+		*lst = new;
 }
