@@ -6,7 +6,7 @@
 /*   By: naalzaab <naalzaab@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 17:35:15 by naalzaab          #+#    #+#             */
-/*   Updated: 2024/02/03 19:58:55 by naalzaab         ###   ########.fr       */
+/*   Updated: 2024/02/03 20:06:08 by naalzaab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,7 @@ int	eat(t_philo *philo)
 	{
 		philo->n_eats++;
 		if (philo->n_eats == philo->table->meals)
-		{
-			printf("ID: %d, Eats: %d\n", philo->id,philo->n_eats);
 			return (1);
-		}
 	}
 	return (0);
 }

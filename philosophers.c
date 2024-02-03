@@ -6,7 +6,7 @@
 /*   By: naalzaab <naalzaab@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 18:21:12 by naalzaab          #+#    #+#             */
-/*   Updated: 2024/02/03 19:55:55 by naalzaab         ###   ########.fr       */
+/*   Updated: 2024/02/03 20:06:38 by naalzaab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,15 @@ int	run(t_philo *philo)
 	free_forks(philo);
 	if (printl(philo, FORK) || printl(philo, FORK))
 		return (1);
-	if (eat(philo))
+	if (eat(philo) && philo->n_eats != philo->table->meals)
 		return (1);
 	pthread_mutex_lock(&philo->cur_fork->fork_lock);
 	philo->cur_fork->last_used = philo->id;
 	pthread_mutex_lock(&philo->next_fork->fork_lock);
 	philo->next_fork->last_used = philo->id;
 	free_forks(philo);
+	if (philo->n_eats == philo->table->meals)
+		return (1);
 	return (0);
 }
 
@@ -109,12 +111,14 @@ int	reverse_run(t_philo *philo)
 	free_forks(philo);
 	if (printl(philo, FORK) || printl(philo, FORK))
 		return (1);
-	if (eat(philo))
+	if (eat(philo) && philo->n_eats != philo->table->meals)
 		return (1);
 	pthread_mutex_lock(&philo->next_fork->fork_lock);
 	philo->next_fork->last_used = philo->id;
 	pthread_mutex_lock(&philo->cur_fork->fork_lock);
 	philo->cur_fork->last_used = philo->id;
 	free_forks(philo);
+	if (philo->n_eats == philo->table->meals)
+		return (1);
 	return (0);
 }
