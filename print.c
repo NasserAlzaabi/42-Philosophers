@@ -6,7 +6,7 @@
 /*   By: naalzaab <naalzaab@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 17:44:43 by naalzaab          #+#    #+#             */
-/*   Updated: 2024/02/03 19:17:44 by naalzaab         ###   ########.fr       */
+/*   Updated: 2024/02/04 14:21:33 by naalzaab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,11 @@ int	printl(t_philo *philo, char *state)
 		return (0);
 	}
 	pthread_mutex_unlock(&philo->table->writing);
+	return (1);
+}
+
+int	print_error(void)
+{
+	write(2, "Error: invalid input", 20);
 	return (1);
 }

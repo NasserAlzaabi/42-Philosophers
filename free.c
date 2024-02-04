@@ -6,7 +6,7 @@
 /*   By: naalzaab <naalzaab@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 19:09:11 by naalzaab          #+#    #+#             */
-/*   Updated: 2024/02/03 19:30:11 by naalzaab         ###   ########.fr       */
+/*   Updated: 2024/02/04 13:33:07 by naalzaab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,6 @@ int	free_mutex(t_able *table, int n)
 		tmp = table->forks->next;
 		pthread_mutex_destroy(&table->forks->fork_lock);
 		free(table->forks);
-		// if (i + 1 < n)
-			// tmp = table->forks->next;
-		// pthread_mutex_destroy(&table->forks->fork_lock);
-		// free(table->forks);
-		// if (i + 1 < n)
-			// break ;
 		table->forks = tmp;
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: naalzaab <naalzaab@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 17:35:15 by naalzaab          #+#    #+#             */
-/*   Updated: 2024/02/03 20:06:08 by naalzaab         ###   ########.fr       */
+/*   Updated: 2024/02/04 19:32:19 by naalzaab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,8 @@ int	sleepin(t_philo *philo)
 	{
 		if (check_dead(philo))
 			return (1);
-		if (philo->table->any_dead)
-			return (1);
 		usleep(200);
-		if (eat_time(start_time, philo->table->t_sleep))
+		if (wait_time(start_time, philo->table->t_sleep))
 			break ;
 	}
 	return (0);
@@ -92,7 +90,7 @@ int	eat(t_philo *philo)
 		if (check_dead(philo))
 			return (1);
 		usleep(200);
-		if (eat_time(philo->last_eat, philo->table->t_eat))
+		if (wait_time(philo->last_eat, philo->table->t_eat))
 			break ;
 	}
 	if (philo->table->meals != -1)
@@ -104,7 +102,7 @@ int	eat(t_philo *philo)
 	return (0);
 }
 
-int	eat_time(t_ime start, int et)
+int	wait_time(t_ime start, int et)
 {
 	t_ime	cur_time;
 	long	res;

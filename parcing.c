@@ -6,7 +6,7 @@
 /*   By: naalzaab <naalzaab@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 17:34:47 by naalzaab          #+#    #+#             */
-/*   Updated: 2024/02/03 19:11:32 by naalzaab         ###   ########.fr       */
+/*   Updated: 2024/02/04 18:49:10 by naalzaab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	check_args(char **str)
 		}
 		if (ft_atoi(str[i]) > INT_MAX || ft_atoi(str[i]) < INT_MIN)
 			return (0);
+		if (ft_atoi(str[i]) == 0)
+			return (0);
 		i++;
 	}
 	return (1);
@@ -43,7 +45,6 @@ void	init_args(int argc, char **av, t_able *table)
 	table->t_eat = ft_atoi(av[3]);
 	table->t_sleep = ft_atoi(av[4]);
 	table->any_dead = 0;
-	table->full_philos = 0;
 	if (pthread_mutex_init(&table->writing, NULL) != 0)
 		return ;
 	if (argc == 6)
@@ -75,7 +76,7 @@ int	assign_forks(t_able *table)
 	{
 		tmp = create_fork();
 		if (!tmp)
-			return (1); //create function to free all then return null
+			return (1);
 		tmp->fork_id = i;
 		tmp->last_used = i;
 		if (i % 2)
@@ -86,13 +87,8 @@ int	assign_forks(t_able *table)
 			tmp->last_used = i;
 		ft_lstadd_back(&forks, tmp);
 		if (pthread_mutex_init(&tmp->fork_lock, NULL) != 0)
-		{
-			table->forks = forks;
-			free_all(table, i);
-			return (1);
-		}
+			return (assign_return(table, forks, i));
 	}
 	tmp->next = forks;
-	table->forks = forks;
-	return (0);
+	return (assign_ret(table, forks));
 }

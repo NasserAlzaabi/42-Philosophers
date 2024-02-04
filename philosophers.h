@@ -6,7 +6,7 @@
 /*   By: naalzaab <naalzaab@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 18:25:20 by naalzaab          #+#    #+#             */
-/*   Updated: 2024/02/03 18:29:34 by naalzaab         ###   ########.fr       */
+/*   Updated: 2024/02/04 18:29:02 by naalzaab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ typedef struct s_able
 	int					num_of_philos;
 	int					any_dead;
 	int					meals;
-	int					full_philos;
 	struct timeval		start_time;
 	long				t_start;
 	pthread_mutex_t		writing;
@@ -87,7 +86,7 @@ int						wait_turn(t_philo *philo);
 int						free_forks(t_philo *philo);
 int						printl(t_philo *philo, char *state);
 int						eat(t_philo *philo);
-int						eat_time(t_ime start, int et);
+int						wait_time(t_ime start, int et);
 int						reverse_run(t_philo *philo);
 int						run(t_philo *philo);
 void					threads_init(t_able *table);
@@ -96,7 +95,10 @@ void					single_philo(t_philo *philo);
 int						wait_turn(t_philo *philo);
 int						free_fork(t_philo *philo, int whos_fork);
 int						sleepin(t_philo *philo);
-int						eat_time(t_ime start, int et);
+int						wait_time(t_ime start, int et);
 int						eat(t_philo *philo);
+int						print_error(void);
+int						assign_return(t_able *table, t_fork *forks, int i);
+int						assign_ret(t_able *table, t_fork *forks);
 
 #endif

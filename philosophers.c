@@ -6,7 +6,7 @@
 /*   By: naalzaab <naalzaab@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 18:21:12 by naalzaab          #+#    #+#             */
-/*   Updated: 2024/02/03 20:06:38 by naalzaab         ###   ########.fr       */
+/*   Updated: 2024/02/04 18:26:40 by naalzaab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,23 @@
 int	check_dead(t_philo *philo)
 {
 	long	curtime;
-	bool	ret;
+	int		ret;
 
-	ret = false;
+	ret = 0;
 	gettimeofday(&philo->current_time, NULL);
 	philo->is_dead = (philo->current_time.tv_sec * 1000
 			+ philo->current_time.tv_usec / 1000) - (philo->last_eat.tv_sec
 			* 1000 + philo->last_eat.tv_usec / 1000);
-	curtime = (philo->current_time.tv_sec * 1000 + philo->current_time.tv_usec / 1000) - philo->table->t_start;
+	curtime = (philo->current_time.tv_sec * 1000 + \
+		philo->current_time.tv_usec / 1000) - philo->table->t_start;
 	pthread_mutex_lock(&philo->table->writing);
 	if (philo->table->any_dead)
-		ret = true;
+		ret = 1;
 	else if (philo->is_dead >= philo->table->t_die)
 	{
 		printf(DEAD, (int)(curtime), philo->id);
 		philo->table->any_dead = 1;
-		ret = true;
+		ret = 1;
 	}
 	pthread_mutex_unlock(&philo->table->writing);
 	return (ret);
@@ -61,7 +62,7 @@ void	philos(void *arg)
 		else if (reverse_run(philo))
 			break ;
 		if (sleepin(philo))
-			break ;  
+			break ;
 	}
 }
 
@@ -77,7 +78,7 @@ int	run(t_philo *philo)
 			&& philo->id != philo->cur_fork->last_used)
 			break ;
 		free_forks(philo);
-		usleep(250);
+		usleep(200);
 	}
 	free_forks(philo);
 	if (printl(philo, FORK) || printl(philo, FORK))
@@ -106,7 +107,7 @@ int	reverse_run(t_philo *philo)
 			&& philo->id != philo->cur_fork->last_used)
 			break ;
 		free_forks(philo);
-		usleep(250);
+		usleep(200);
 	}
 	free_forks(philo);
 	if (printl(philo, FORK) || printl(philo, FORK))

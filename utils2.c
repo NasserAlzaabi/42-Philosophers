@@ -6,7 +6,7 @@
 /*   By: naalzaab <naalzaab@student.42.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 18:23:14 by naalzaab          #+#    #+#             */
-/*   Updated: 2024/02/03 18:23:32 by naalzaab         ###   ########.fr       */
+/*   Updated: 2024/02/04 14:39:42 by naalzaab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,17 @@ void	ft_lstadd_back(t_fork **lst, t_fork *new)
 	}
 	else
 		*lst = new;
+}
+
+int	assign_return(t_able *table, t_fork *forks, int i)
+{
+	table->forks = forks;
+	free_all(table, i);
+	return (1);
+}
+
+int	assign_ret(t_able *table, t_fork *forks)
+{
+	table->forks = forks;
+	return (0);
 }
